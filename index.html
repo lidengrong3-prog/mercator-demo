@@ -11568,7 +11568,7 @@ function cmpRenderSchemes(){
   var box=document.getElementById('cmp-schemes-list');if(!box)return;
   var schemes={};try{schemes=JSON.parse(localStorage.getItem('jay_cmp_schemes')||'{}');}catch(e){}
   var keys=Object.keys(schemes);
-  if(!keys.length){box.innerHTML='<span class="cmp-sel-empty">暂无保存的方案，对比后可点「💾 保存方案」</span>';return;}
+  if(!keys.length){box.innerHTML='<span class="cmp-sel-empty">暂无保存的方案，对比后可点「保存方案」</span>';return;}
   keys.sort(function(a,b){return (schemes[b].ts||0)-(schemes[a].ts||0);});
   var html='';
   keys.forEach(function(k){
@@ -13324,7 +13324,7 @@ function stToast(msg){
 
     st.lastOk=jayNowStr(); st.status='ok'; st.changed=changes.length; st.source=source;
     var srcTxt = source==='demo-sim' ? ('演示模拟·内容已演进 '+changes.length+' 项') : '实时数据';
-    jaySetStamp(def, '📡 数据抓取于 '+jayNowStr()+' | 来源: '+srcTxt+' | 变更 '+changes.length+' 条');
+    jaySetStamp(def, '数据抓取于 '+jayNowStr()+' | 来源: '+srcTxt+' | 变更 '+changes.length+' 条');
     jayLog({ key:def.key, label:def.label, status:'ok', changed:changes.length, source:source });
     if(typeof jayUpdateDataStamp==='function') jayUpdateDataStamp();
     jayRenderRefreshStatus();
