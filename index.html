@@ -9,7 +9,19 @@
 <style>
 :root{--ink:#1f2937;--muted:#6b7280;--paper:#f0f2f5;--line:#e5e7eb;--orange:#3b7ab8;--orange-light:#eff6ff;--green:#2c5f8a;--sage:#e2e8f0;--sea:#3b7ab8;--sea-deep:#1e3a5f;--sea-soft:#eff6ff;--wave:#d6e4f5;--navy:#1e3a5f;--navy2:#2d5a8e;--navy3:#3b7ab8;--shadow-card:0 1px 3px rgba(0,0,0,.05)}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Noto Sans SC',sans-serif;font-size:14px}aside.sidebar{width:244px;position:fixed;inset:0 auto 0 0;background:#fff;border-right:1px solid #e5e7eb;color:#1f2937;padding:20px 14px;display:flex;flex-direction:column;z-index:2;box-shadow:0 0 24px rgba(26,35,50,.04)}.brand{display:flex;align-items:center;gap:11px;margin:0 9px 30px;padding-bottom:18px;border-bottom:1px solid #f0f0f0}.brand-mark{width:38px;height:38px;display:grid;place-items:center;font:800 30px 'Playfair Display',serif;color:#fff;line-height:1;background:linear-gradient(135deg,#1e3a5f,#3b7ab8);border-radius:8px;box-shadow:0 4px 10px rgba(30,58,95,.25)}.brand strong{font-family:'Playfair Display','PingFang SC','Microsoft YaHei',serif;font-size:20px;font-weight:800;letter-spacing:.3px;line-height:1.25;color:#1e3a5f}.brand small,.workspace small{display:block;color:#9ca3af;font:10px 'DM Mono';letter-spacing:.7px;margin-top:2px}nav{display:grid;gap:3px;overflow-y:auto;max-height:calc(100vh - 260px);padding-right:4px}.nav-item{color:#4b5563;text-decoration:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:background .15s,color .15s;font-size:14px}.nav-item span{font-size:17px;color:#6b7280}.nav-item:hover,.nav-item.active{background:#eff6ff;color:#1e3a5f}.nav-item.active span{color:#1e3a5f}.nav-item b{margin-left:auto;background:#e5e7eb;color:#6b7280;font:10px 'DM Mono';padding:2px 6px;border-radius:8px}.nav-item b.danger{background:#fee2e2;color:#dc2626}.sidebar-bottom{margin-top:auto}.workspace{border-top:1px solid #f0f0f0;padding:16px 9px 6px;display:flex;align-items:center;gap:9px}.workspace>span:last-child{margin-left:auto}.avatar{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#f59e0b,#ef4444);color:white;font:12px 'DM Mono'}.avatar.green{background:#527b70}main{margin-left:244px;min-height:100vh;padding:72px 32px 32px;position:relative;z-index:1}header{position:fixed;top:0;left:244px;right:0;height:56px;background:#fff;border-bottom:1px solid #e5e7eb;z-index:90;display:flex;justify-content:space-between;align-items:center;margin:0;padding:0 24px;box-shadow:0 1px 4px rgba(26,35,50,.04)}.eyebrow{font:10px 'DM Mono';letter-spacing:1.1px;color:#5b6b7b;margin:0 0 7px}h1,h2{margin:0;font-weight:600}h1{font:22px 'Playfair Display';letter-spacing:-.3px;line-height:1.3}h2{font-size:20px}.header-tools{display:flex;gap:11px;align-items:center}.search{width:280px;background:#f3f4f6;border:1px solid transparent;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:8px;transition:border-color .15s,background .15s}
 .search:focus-within{background:#fff;border-color:#1e3a5f;box-shadow:0 0 0 3px rgba(30,58,95,.08)}.search span{font-size:20px;color:#77857f}.search input{border:0;outline:0;width:100%;font-family:inherit;font-size:12px}.search kbd{white-space:nowrap;font:10px 'DM Mono';color:#6b7280;border:1px solid #ddd;padding:2px 4px;border-radius:4px}.icon-btn,.export,.outline,.filter-button{border:0;background:white;font-family:inherit;cursor:pointer;border-radius:8px}.icon-btn{position:relative;width:37px;height:37px;font-size:18px}.icon-btn i{position:absolute;right:8px;top:8px;width:5px;height:5px;background:var(--sea);border-radius:50%}.export{background:linear-gradient(135deg,#1e3a5f,#2d5a8e);color:#fff;padding:10px 16px;font-size:12px;font-weight:600;border-radius:8px;box-shadow:0 2px 8px rgba(30,58,95,.2);transition:opacity .15s}
-.export:hover{opacity:.92}.export span{margin-left:6px}.page{display:none}.page.active{display:block}.hero-grid{display:grid;grid-template-columns:1.8fr .9fr;gap:18px}.market-pulse,.panel,.country-profile{background:#fff;border:1px solid var(--line);border-radius:12px}.market-pulse{padding:23px 25px}.card-title{display:flex;justify-content:space-between;font-weight:600}.card-title em{font:10px 'DM Mono';font-style:normal;color:#5b6b7b}.card-title i,.source-ok{color:#4a80c8}.card-title i{display:inline-block;width:6px;height:6px;background:#54a875;border-radius:50%;margin-right:5px}.pulse-main{display:grid;grid-template-columns:repeat(3,1fr);margin:33px 0 27px}.pulse-main p{color:var(--muted);margin:0 0 7px;font-size:12px}.pulse-main strong{font:31px 'Playfair Display';display:block;letter-spacing:-1px}.pulse-main span{font:11px 'DM Mono'}.up{color:#4d8a68}.pulse-foot{border-top:1px solid #e9e7e2;padding-top:13px;color:#88928e;font-size:11px;display:flex;gap:14px}.source-warn{color:#c9944a}.pulse-foot a{margin-left:auto;color:var(--ink);text-decoration:none}.focus-card{background:var(--sea);color:#fff;padding:23px 26px;border-radius:12px;position:relative;overflow:hidden}.focus-card:after{content:'↗';font:180px 'Playfair Display';opacity:.12;position:absolute;right:-22px;bottom:-68px}.focus-card .eyebrow{color:#ffdac7}.focus-card h2{font:24px 'Playfair Display';line-height:1.35}.focus-card h2 em{font-style:normal;color:#ffe4cc}.focus-stats{display:flex;gap:22px;margin:23px 0 16px;font-size:11px;position:relative;z-index:1}.focus-stats span{display:grid;gap:4px}.focus-stats b{font:15px 'DM Mono'}.focus-card button{background:none;border:0;border-top:1px solid #f5a47e;color:#fff;padding:10px 0 0;font-family:inherit;font-size:12px;cursor:pointer;position:relative;z-index:1}.section-heading{display:flex;align-items:end;justify-content:space-between;margin:32px 0 16px}.text-button{border:0;background:none;color:var(--navy3);font:12px 'Noto Sans SC';cursor:pointer}.country-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.country-card{background:white;border:1px solid var(--line);border-radius:12px;padding:18px;cursor:pointer;transition:.15s}.country-card:hover{transform:translateY(-2px);border-color:#a8b8d0}.country-top{display:flex;justify-content:space-between;align-items:center}.flag{font-size:22px}.country-card h3{font-size:15px;margin:15px 0 3px}.country-card p{font:11px 'DM Mono';color:var(--muted);margin:0}.country-row{display:flex;justify-content:space-between;border-top:1px solid #eee;margin-top:17px;padding-top:10px;font-size:10px;color:#7d8985}.country-row b{font:12px 'DM Mono';color:var(--ink)}.growth{color:#3a6ea8!important}.lower-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px;margin-top:18px}.panel{padding:22px 24px}.panel-head{display:flex;justify-content:space-between;align-items:flex-start}.panel-head select,.filter-row select{border:1px solid var(--line);padding:7px;background:#fff;border-radius:4px;color:#465668;font:11px 'Noto Sans SC'}.chart-labels{display:flex;justify-content:space-between;margin-top:24px;font-size:11px;color:#56635e}.bar-chart{height:120px;margin-top:9px;padding:0 25px;display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);background:repeating-linear-gradient(to bottom,transparent,transparent 39px,#f0eee9 40px)}.bar-chart i{width:42px;height:var(--h);background:var(--c);border-radius:4px 3px 0 0}.chart-axis{display:flex;justify-content:space-between;color:#5b6b7b;font:10px 'DM Mono';margin-top:7px}.alert-item{display:grid;grid-template-columns:8px 1fr auto;gap:10px;padding:13px 0;border-bottom:1px solid #efede9}.alert-item:last-child{border-bottom:0}.alert-dot{width:7px;height:7px;border-radius:50%;margin-top:5px}.alert-item p{margin:0;font-size:12px}.alert-item small{color:#87918d;font:10px 'DM Mono'}.alert-item time{font:10px 'DM Mono';color:#6b7280}.tabbar{border-bottom:1px solid var(--line);margin-bottom:20px}.tabbar button{background:none;border:0;padding:12px 18px 13px 0;margin-right:20px;font-family:inherit;color:#76837e;cursor:pointer}.tabbar .selected{color:var(--ink);border-bottom:2px solid var(--sea);font-weight:600}.filter-row{display:flex;gap:10px;margin-bottom:18px}.filter-button{background:var(--ink);color:#fff;padding:0 16px}.table-panel{padding:0 24px 14px}.table-panel .panel-head{padding:22px 0 15px}table{width:100%;border-collapse:collapse;text-align:left}th{font:10px 'DM Mono';letter-spacing:.5px;color:#5b6b7b;padding:12px 8px;border-top:1px solid #e9e7e2;border-bottom:1px solid #e9e7e2}td{padding:13px 8px;border-bottom:1px solid #f0f2f6;font-size:12px}td strong{font-size:12px}td small{display:block;font:10px 'DM Mono';color:#5b6b7b;margin-top:3px}.product-cell{display:flex;gap:10px;align-items:center}.product-thumb{width:32px;height:32px;border-radius:4px;background:linear-gradient(135deg,#e8c49b,#c77b5a);display:grid;place-items:center;font-size:17px}.tag{display:inline-block;border-radius:12px;padding:3px 7px;font:9px 'DM Mono'}.tag.hot{background:#e8f0fc;color:#2a5a8a}.tag.watch{background:#eaf0f8;color:#2c5f8a}.market-layout{display:grid;grid-template-columns:2fr .8fr;gap:18px}.country-profile{padding:29px}.country-hero{display:flex;align-items:center;gap:16px}.flag.big{font-size:43px}.country-hero h2{font:27px 'Playfair Display'}.country-hero div span{font-size:12px;color:var(--muted)}.outline{border:1px solid #b8c2bc;color:var(--navy3);background:#fff;padding:8px 11px;font-size:11px;margin-left:auto}.metric-strip{background:#f0f7ff;display:grid;grid-template-columns:repeat(4,1fr);margin:29px 0;padding:18px}.metric-strip div{border-right:1px solid #d8dfd8;padding:0 16px}.metric-strip div:last-child{border:0}.metric-strip span{display:block;color:#5b6b7b;font-size:11px}.metric-strip b{display:block;margin-top:5px;font:16px 'DM Mono'}.profile-sections{display:grid;grid-template-columns:1fr 1fr;gap:34px}.profile-sections h3{font-size:14px;margin:0 0 10px}.profile-sections p{font-size:12px;line-height:1.8;color:#5e6d80;margin:0}.pills{display:flex;gap:7px;margin-top:14px}.pills span{background:#eff6ff;color:#2c5f8a;padding:4px 7px;border-radius:4px;font-size:10px}.channel-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px}.channel-row span{color:#74817c}.policy-card{background:#1e3a5f;color:white;padding:25px;border-radius:12px}.policy-card .eyebrow{color:#b8d4e8}.policy-card h2{font:20px 'Playfair Display';margin-bottom:22px}.policy-alert{background:#bfdbfe;color:#1e3a5f;padding:13px}.policy-alert strong{font:9px 'DM Mono';background:#dc6d3f;color:white;padding:3px 5px}.policy-alert p{font-size:12px;margin:9px 0 3px}.policy-alert small{font-size:10px;color:#875946}.policy-item{border-bottom:1px solid #2d5a8e;padding:14px 0;font-size:12px;display:flex;justify-content:space-between;color:#e8f0fe}.policy-card .text-button{color:#dbeafe;margin-top:18px}.settings{max-width:700px}.settings>p:not(.eyebrow){color:#6f7c77;margin:9px 0 25px}.member{display:flex;gap:10px;align-items:center;border-top:1px solid #e8e6e1;padding:13px 0}.member div{display:grid;gap:2px}.member small{color:#5b6b7b;font-size:11px}.toast{position:fixed;right:30px;bottom:25px;background:#1e3a5f;color:white;padding:12px 17px;border-radius:4px;transform:translateY(80px);opacity:0;transition:.25s;font-size:12px;z-index:5}.toast.show{transform:none;opacity:1}@media(max-width:1000px){.country-grid{grid-template-columns:repeat(2,1fr)}.hero-grid,.lower-grid,.market-layout{grid-template-columns:1fr}.search{display:none}}@media(max-width:700px){aside.sidebar{width:58px;padding:17px 8px}.brand{margin:0 4px 32px}.brand>div,.nav-item:not(.active)::after,.nav-item{font-size:0}.brand-mark{width:34px}.nav-item{justify-content:center;padding:13px 0}.nav-item span{font-size:17px}.nav-item b{display:none}.workspace{padding:15px 4px}.workspace div,.workspace>span:last-child,.sidebar-bottom .nav-item{display:none}main{margin-left:58px;padding:23px 18px}header{left:58px;margin-bottom:24px}.header-tools .icon-btn{display:none}h1{font-size:24px}.export{padding:9px}.pulse-main{gap:12px}.pulse-main strong{font-size:23px}.pulse-foot{flex-wrap:wrap}.country-grid{grid-template-columns:1fr}.profile-sections,.metric-strip{grid-template-columns:1fr 1fr}.metric-strip{gap:14px}.metric-strip div{border:0;padding:0}.table-panel{overflow-x:auto}.table-panel table{min-width:660px}}
+.export:hover{opacity:.92}.export span{margin-left:6px}.page{display:none}.page.active{display:block}.hero-grid{display:grid;grid-template-columns:1.8fr .9fr;gap:18px}.market-pulse,.panel,.country-profile{background:#fff;border:1px solid var(--line);border-radius:12px}.market-pulse{padding:23px 25px}.card-title{display:flex;justify-content:space-between;font-weight:600}.card-title em{font:10px 'DM Mono';font-style:normal;color:#5b6b7b}.card-title i,.source-ok{color:#4a80c8}.card-title i{display:inline-block;width:6px;height:6px;background:#54a875;border-radius:50%;margin-right:5px}.pulse-main{display:grid;grid-template-columns:repeat(3,1fr);margin:33px 0 27px}.pulse-main p{color:var(--muted);margin:0 0 7px;font-size:12px}.pulse-main strong{font:31px 'Playfair Display';display:block;letter-spacing:-1px}.pulse-main span{font:11px 'DM Mono'}.up{color:#4d8a68}.pulse-foot{border-top:1px solid #e9e7e2;padding-top:13px;color:#88928e;font-size:11px;display:flex;gap:14px}.source-warn{color:#c9944a}.pulse-foot a{margin-left:auto;color:var(--ink);text-decoration:none}.focus-card{background:var(--sea);color:#fff;padding:23px 26px;border-radius:12px;position:relative;overflow:hidden}.focus-card:after{content:'↗';font:180px 'Playfair Display';opacity:.12;position:absolute;right:-22px;bottom:-68px}.focus-card .eyebrow{color:#ffdac7}.focus-card h2{font:24px 'Playfair Display';line-height:1.35}.focus-card h2 em{font-style:normal;color:#ffe4cc}.focus-stats{display:flex;gap:22px;margin:23px 0 16px;font-size:11px;position:relative;z-index:1}.focus-stats span{display:grid;gap:4px}.focus-stats b{font:15px 'DM Mono'}.focus-card button{background:none;border:0;border-top:1px solid #f5a47e;color:#fff;padding:10px 0 0;font-family:inherit;font-size:12px;cursor:pointer;position:relative;z-index:1}.section-heading{display:flex;align-items:end;justify-content:space-between;margin:32px 0 16px}.text-button{border:0;background:none;color:var(--navy3);font:12px 'Noto Sans SC';cursor:pointer}.country-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.country-card{background:white;border:1px solid var(--line);border-radius:12px;padding:18px;cursor:pointer;transition:.15s}.country-card:hover{transform:translateY(-2px);border-color:#a8b8d0}.country-top{display:flex;justify-content:space-between;align-items:center}.flag{font-size:22px}.country-card h3{font-size:15px;margin:15px 0 3px}.country-card p{font:11px 'DM Mono';color:var(--muted);margin:0}.country-row{display:flex;justify-content:space-between;border-top:1px solid #eee;margin-top:17px;padding-top:10px;font-size:10px;color:#7d8985}.country-row b{font:12px 'DM Mono';color:var(--ink)}.growth{color:#3a6ea8!important}.lower-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px;margin-top:18px}.panel{padding:22px 24px}.panel-head{display:flex;justify-content:space-between;align-items:flex-start}.panel-head select,.filter-row select{border:1px solid var(--line);padding:7px;background:#fff;border-radius:4px;color:#465668;font:11px 'Noto Sans SC'}.chart-labels{display:flex;justify-content:space-between;margin-top:24px;font-size:11px;color:#56635e}.bar-chart{height:120px;margin-top:9px;padding:0 25px;display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);background:repeating-linear-gradient(to bottom,transparent,transparent 39px,#f0eee9 40px)}.bar-chart i{width:42px;height:var(--h);background:var(--c);border-radius:4px 3px 0 0}.chart-axis{display:flex;justify-content:space-between;color:#5b6b7b;font:10px 'DM Mono';margin-top:7px}.alert-item{display:grid;grid-template-columns:8px 1fr auto;gap:10px;padding:13px 0;border-bottom:1px solid #efede9}.alert-item:last-child{border-bottom:0}.alert-dot{width:7px;height:7px;border-radius:50%;margin-top:5px}.alert-item p{margin:0;font-size:12px}.alert-item small{color:#87918d;font:10px 'DM Mono'}.alert-item time{font:10px 'DM Mono';color:#6b7280}.tabbar{border-bottom:1px solid var(--line);margin-bottom:20px}.tabbar button{background:none;border:0;padding:12px 18px 13px 0;margin-right:20px;font-family:inherit;color:#76837e;cursor:pointer}.tabbar .selected{color:var(--ink);border-bottom:2px solid var(--sea);font-weight:600}.filter-row{display:flex;gap:10px;margin-bottom:18px}.filter-button{background:var(--ink);color:#fff;padding:0 16px}.table-panel{padding:0 24px 14px}.table-panel .panel-head{padding:22px 0 15px}table{width:100%;border-collapse:collapse;text-align:left}th{font:10px 'DM Mono';letter-spacing:.5px;color:#5b6b7b;padding:12px 8px;border-top:1px solid #e9e7e2;border-bottom:1px solid #e9e7e2}td{padding:13px 8px;border-bottom:1px solid #f0f2f6;font-size:12px}td strong{font-size:12px}td small{display:block;font:10px 'DM Mono';color:#5b6b7b;margin-top:3px}.product-cell{display:flex;gap:10px;align-items:center}.product-thumb{width:32px;height:32px;border-radius:4px;background:linear-gradient(135deg,#93c5fd,#3b82f6);display:grid;place-items:center;font-size:17px}
+/* Category-based product thumbnail gradients */
+.product-thumb[data-cat="家居家装"]{background:linear-gradient(135deg,#93c5fd,#3b82f6)}
+.product-thumb[data-cat="美妆个护"]{background:linear-gradient(135deg,#f9a8d4,#ec4899)}
+.product-thumb[data-cat="3C数码"]{background:linear-gradient(135deg,#a5b4fc,#6366f1)}
+.product-thumb[data-cat="服饰鞋包"]{background:linear-gradient(135deg,#fdba74,#f97316)}
+.product-thumb[data-cat="运动户外"]{background:linear-gradient(135deg,#86efac,#22c55e)}
+.product-thumb[data-cat="宠物用品"]{background:linear-gradient(135deg,#67e8f9,#06b6d4)}
+.product-thumb[data-cat="母婴用品"]{background:linear-gradient(135deg,#d8b4fe,#a855f7)}
+.product-thumb[data-cat="食品饮料"]{background:linear-gradient(135deg,#fde68a,#f59e0b)}
+.product-thumb[data-cat="汽车配件"]{background:linear-gradient(135deg,#94a3b8,#64748b)}
+.product-thumb[data-cat="健康保健"]{background:linear-gradient(135deg,#a7f3d0,#10b981)}
+.tag{display:inline-block;border-radius:12px;padding:3px 7px;font:9px 'DM Mono'}.tag.hot{background:#e8f0fc;color:#2a5a8a}.tag.watch{background:#eaf0f8;color:#2c5f8a}.market-layout{display:grid;grid-template-columns:2fr .8fr;gap:18px}.country-profile{padding:29px}.country-hero{display:flex;align-items:center;gap:16px}.flag.big{font-size:43px}.country-hero h2{font:27px 'Playfair Display'}.country-hero div span{font-size:12px;color:var(--muted)}.outline{border:1px solid #b8c2bc;color:var(--navy3);background:#fff;padding:8px 11px;font-size:11px;margin-left:auto}.metric-strip{background:#f0f7ff;display:grid;grid-template-columns:repeat(4,1fr);margin:29px 0;padding:18px}.metric-strip div{border-right:1px solid #d8dfd8;padding:0 16px}.metric-strip div:last-child{border:0}.metric-strip span{display:block;color:#5b6b7b;font-size:11px}.metric-strip b{display:block;margin-top:5px;font:16px 'DM Mono'}.profile-sections{display:grid;grid-template-columns:1fr 1fr;gap:34px}.profile-sections h3{font-size:14px;margin:0 0 10px}.profile-sections p{font-size:12px;line-height:1.8;color:#5e6d80;margin:0}.pills{display:flex;gap:7px;margin-top:14px}.pills span{background:#eff6ff;color:#2c5f8a;padding:4px 7px;border-radius:4px;font-size:10px}.channel-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px}.channel-row span{color:#74817c}.policy-card{background:#1e3a5f;color:white;padding:25px;border-radius:12px}.policy-card .eyebrow{color:#b8d4e8}.policy-card h2{font:20px 'Playfair Display';margin-bottom:22px}.policy-alert{background:#bfdbfe;color:#1e3a5f;padding:13px}.policy-alert strong{font:9px 'DM Mono';background:#dc6d3f;color:white;padding:3px 5px}.policy-alert p{font-size:12px;margin:9px 0 3px}.policy-alert small{font-size:10px;color:#875946}.policy-item{border-bottom:1px solid #2d5a8e;padding:14px 0;font-size:12px;display:flex;justify-content:space-between;color:#e8f0fe}.policy-card .text-button{color:#dbeafe;margin-top:18px}.settings{max-width:700px}.settings>p:not(.eyebrow){color:#6f7c77;margin:9px 0 25px}.member{display:flex;gap:10px;align-items:center;border-top:1px solid #e8e6e1;padding:13px 0}.member div{display:grid;gap:2px}.member small{color:#5b6b7b;font-size:11px}.toast{position:fixed;right:30px;bottom:25px;background:#1e3a5f;color:white;padding:12px 17px;border-radius:4px;transform:translateY(80px);opacity:0;transition:.25s;font-size:12px;z-index:5}.toast.show{transform:none;opacity:1}@media(max-width:1000px){.country-grid{grid-template-columns:repeat(2,1fr)}.hero-grid,.lower-grid,.market-layout{grid-template-columns:1fr}.search{display:none}}@media(max-width:700px){aside.sidebar{width:58px;padding:17px 8px}.brand{margin:0 4px 32px}.brand>div,.nav-item:not(.active)::after,.nav-item{font-size:0}.brand-mark{width:34px}.nav-item{justify-content:center;padding:13px 0}.nav-item span{font-size:17px}.nav-item b{display:none}.workspace{padding:15px 4px}.workspace div,.workspace>span:last-child,.sidebar-bottom .nav-item{display:none}main{margin-left:58px;padding:23px 18px}header{left:58px;margin-bottom:24px}.header-tools .icon-btn{display:none}h1{font-size:24px}.export{padding:9px}.pulse-main{gap:12px}.pulse-main strong{font-size:23px}.pulse-foot{flex-wrap:wrap}.country-grid{grid-template-columns:1fr}.profile-sections,.metric-strip{grid-template-columns:1fr 1fr}.metric-strip{gap:14px}.metric-strip div{border:0;padding:0}.table-panel{overflow-x:auto}.table-panel table{min-width:660px}}
 :root{}.login-screen{position:fixed;inset:0;z-index:20;background:#fff;display:flex;align-items:stretch;color:#fff}.login-brand{flex:1.2;background:linear-gradient(135deg,#1e3a5f 0%,#2d5a8e 50%,#3b7ab8 100%);display:flex;flex-direction:column;justify-content:center;padding:60px 70px;position:relative;overflow:hidden}
 .login-brand::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,.05);top:-150px;right:-150px}
 .login-brand::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.03);bottom:-100px;left:-80px}.login-brand .brand-mark{width:54px;height:54px;margin-bottom:18px;font-size:30px;font-family:'PingFang SC','Microsoft YaHei','Noto Sans CJK SC',sans-serif;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);border-radius:12px;display:grid;place-items:center;position:relative;z-index:1}.login-brand strong{font:40px 'Playfair Display';display:block;position:relative;z-index:1}.login-brand small{font:10px 'DM Mono';letter-spacing:1.5px;color:#c7d6e6;position:relative;z-index:1}.login-card{flex:1;background:#fff;color:#1f2937;display:flex;flex-direction:column;justify-content:center;padding:60px 64px}
@@ -3549,11 +3561,11 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
   <!-- 顶部栏 -->
   <header class="topbar">
     <nav class="topbar-nav">
-      <div class="topbar-item" onclick="topbarSwitch('tools', this)">🧰 操盘手工具</div>
-      <div class="topbar-item" onclick="topbarSwitch('ai', this)">🤖 AI工具</div>
-      <div class="topbar-item" onclick="topbarSwitch('api', this)">🔌 API接口</div>
-      <div class="topbar-item" onclick="topbarSwitch('resource', this)">📚 资源中心</div>
-      <div class="topbar-item report-btn" onclick="topbarSwitch('report', this)">📄 生成报告</div>
+      <div class="topbar-item" onclick="topbarSwitch('tools', this)">操盘手工具</div>
+      <div class="topbar-item" onclick="topbarSwitch('ai', this)">AI工具</div>
+      <div class="topbar-item" onclick="topbarSwitch('api', this)">API接口</div>
+      <div class="topbar-item" onclick="topbarSwitch('resource', this)">资源中心</div>
+      <div class="topbar-item report-btn" onclick="topbarSwitch('report', this)">生成报告</div>
     </nav>
     <div class="topbar-right">
       <div class="topbar-search">🔍 <input type="text" placeholder="搜索产品、类目、平台..."></div>
@@ -3603,22 +3615,22 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
           </div>
         </div>
         <div class="ai-quick-entries">
-          <div class="ai-quick-entry">🔥 爆款趋势洞察</div>
-          <div class="ai-quick-entry">🎯 AI 驱动智能选品</div>
-          <div class="ai-quick-entry">📦 低 MOQ 柔性供应</div>
-          <div class="ai-quick-entry">⚖️ 合规风险筛查</div>
+          <div class="ai-quick-entry"><span style="color:#ef4444">●</span> 爆款趋势洞察</div>
+          <div class="ai-quick-entry"><span style="color:#3b82f6">◆</span> AI 驱动智能选品</div>
+          <div class="ai-quick-entry"><span style="color:#22c55e">■</span> 低 MOQ 柔性供应</div>
+          <div class="ai-quick-entry"><span style="color:#f59e0b">▲</span> 合规风险筛查</div>
         </div>
       </div>
 
       <!-- 快捷入口 -->
       <div class="quick-cards">
         <div class="quick-card" onclick="switchPage('countries')">
-          <div class="qc-icon blue">📊</div>
+          <div class="qc-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg></div>
           <div class="qc-title">美国市场概览</div>
           <div class="qc-desc">宏观经济、电商规模、消费者画像</div>
         </div>
         <div class="quick-card" onclick="switchPage('platforms')">
-          <div class="qc-icon green">🛒</div>
+          <div class="qc-icon green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></div>
           <div class="qc-title">平台对比分析</div>
           <div class="qc-desc">Amazon/TikTok/速卖通佣金入驻对比</div>
         </div>
@@ -3628,7 +3640,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
           <div class="qc-desc">关税、认证、平台规则实时变动</div>
         </div>
         <div class="quick-card" onclick="topbarSwitch('tools', document.querySelectorAll('.topbar-item')[0])">
-          <div class="qc-icon purple">🧮</div>
+          <div class="qc-icon purple"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg></div>
           <div class="qc-title">利润计算器</div>
           <div class="qc-desc">单品/整柜利润、汇率一键测算</div>
         </div>
@@ -3638,7 +3650,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
       <div class="data-boards">
         <div class="board-card">
           <div class="board-header">
-            <div class="board-title">🏆 热卖商品 <span class="board-date">2026-08-19</span></div>
+            <div class="board-title">热卖商品 <span class="board-date">2026-08-19</span></div>
             <div class="board-more">更多 ›</div>
           </div>
           <table class="board-table">
@@ -3681,7 +3693,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
         </div>
         <div class="board-card">
           <div class="board-header">
-            <div class="board-title">🏪 热门店铺 <span class="board-date">2026-08-19</span></div>
+            <div class="board-title">热门店铺 <span class="board-date">2026-08-19</span></div>
             <div class="board-more">更多 ›</div>
           </div>
           <table class="board-table">
@@ -3815,7 +3827,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
   </div>
   <div class="pr-filter-actions">
     <button class="filter-button" id="pr-apply-filter" style="padding:8px 24px">应用筛选</button>
-    <button class="pr-save-tpl" id="pr-save-tpl-btn">💾 保存筛选模板</button>
+    <button class="pr-save-tpl" id="pr-save-tpl-btn">保存筛选模板</button>
     <button style="background:none;border:none;color:var(--muted);font:11px 'Noto Sans SC';cursor:pointer" id="pr-reset-filter">重置</button>
   </div>
   <div class="pr-tpl-list" id="pr-tpl-list"></div>
@@ -3824,12 +3836,12 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 <div class="pr-batch-bar" id="pr-batch-bar">
   <span>已选 <span class="pr-batch-count" id="pr-batch-count">0</span> 件商品</span>
   <button id="pr-batch-add">✦ 加入报告素材</button>
-  <button id="pr-batch-monitor">📡 加入店铺监控</button>
-  <button id="pr-batch-export">📋 导出数据</button>
+  <button id="pr-batch-monitor">加入店铺监控</button>
+  <button id="pr-batch-export">导出数据</button>
   <button id="pr-batch-clear" style="margin-left:4px">取消选择</button>
   <div class="pr-export-group">
-    <button class="pr-export-btn excel" id="pr-export-excel">📊 简易 Excel</button>
-    <button class="pr-export-btn pdf" id="pr-export-pdf">📄 完整 PDF 片段</button>
+    <button class="pr-export-btn excel" id="pr-export-excel">简易 Excel</button>
+    <button class="pr-export-btn pdf" id="pr-export-pdf">完整 PDF 片段</button>
   </div>
 </div>
 
@@ -3848,7 +3860,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
         <th>#</th>
         <th>商品</th>
         <th>市场 / 平台</th>
-        <th>售价（双币种）</th>
+        <th>售价</th>
         <th>三级类目</th>
         <th>竞品店铺</th>
         <th>销量</th>
@@ -3880,10 +3892,10 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
         </div>
       </div>
       <div class="page-tabs">
-        <div class="page-tab active" onclick="switchCountryTab(this, 'overview')">📊 市场概览</div>
-        <div class="page-tab" onclick="switchCountryTab(this, 'category')">📈 类目机会</div>
-        <div class="page-tab" onclick="switchCountryTab(this, 'platform')">🛒 平台分布</div>
-        <div class="page-tab" onclick="switchCountryTab(this, 'policy')">📜 政策法规</div>
+        <div class="page-tab active" onclick="switchCountryTab(this, 'overview')">市场概览</div>
+        <div class="page-tab" onclick="switchCountryTab(this, 'category')">类目机会</div>
+        <div class="page-tab" onclick="switchCountryTab(this, 'platform')">平台分布</div>
+        <div class="page-tab" onclick="switchCountryTab(this, 'policy')">政策法规</div>
       </div>
       <div style="padding-right:310px;">
         <div class="metric-cards">
@@ -3919,7 +3931,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
           </div>
         </div>
         <div class="chart-card">
-          <div class="chart-title">📈 美国电商市场规模趋势（2019-2026E）</div>
+          <div class="chart-title">美国电商市场规模趋势（2019-2026E）</div>
           <div class="chart-placeholder">
             <div class="chart-bar" style="height:35%;" data-label="2019"></div>
             <div class="chart-bar" style="height:42%;" data-label="2020"></div>
@@ -3934,7 +3946,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
       </div>
       <!-- 右侧预警悬浮栏 -->
       <div class="alert-sidebar">
-        <div class="alert-sidebar-title">⚡ 影响美国市场的紧急预警</div>
+        <div class="alert-sidebar-title">影响美国市场的紧急预警</div>
         <div class="alert-item">
           <div class="alert-item-title">De Minimis 免税额度拟取消</div>
           <div class="alert-item-meta">
@@ -4007,7 +4019,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
     <option value="growth_asc">增速 升序</option>
     <option value="products_desc">商品数 降序</option>
   </select>
-  <button onclick="shSaveTpl()" title="保存筛选模板">💾 保存模板</button>
+  <button onclick="shSaveTpl()" title="保存筛选模板">保存模板</button>
   <select id="sh-tpl-select" onchange="shLoadTpl(this.value)"><option value="">加载模板...</option></select>
 </div>
 
@@ -4020,8 +4032,8 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
   <div style="display:flex;gap:8px;align-items:center">
     <button class="export" onclick="shOpenAddModal()">+ 添加店铺</button>
     <button class="export" onclick="jaySyncShopsToCloud()" title="同步到云端">☁ 同步云端</button>
-    <button class="export" onclick="shExportExcel()" title="导出Excel">📊 Excel</button>
-    <button class="export" onclick="shExportPDF()" title="导出PDF片段">📄 PDF</button>
+    <button class="export" onclick="shExportExcel()" title="导出Excel">Excel</button>
+    <button class="export" onclick="shExportPDF()" title="导出PDF片段">PDF</button>
   </div>
 </div>
 
@@ -4497,7 +4509,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
     <section id="content" class="page">
 
-      <div class="page-header"><h2>📚 资源中心</h2></div>
+      <div class="page-header"><h2>资源中心</h2></div>
       <p style="color:#6b7280;margin-bottom:20px;">跨境电商运营干货、政策解读、行业报告</p>
       <div class="quick-cards">
         <div class="quick-card"><div class="qc-icon blue">📖</div><div class="qc-title">运营指南</div><div class="qc-desc">平台入驻、选品、广告投放教程</div></div>
@@ -4510,13 +4522,13 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
     <section id="report" class="page">
 
-      <div class="page-header"><h2>📄 生成报告</h2></div>
+      <div class="page-header"><h2>生成报告</h2></div>
       <p style="color:#6b7280;margin-bottom:20px;">选择报告类型，一键生成专业市场调研报告</p>
       <div style="margin-bottom:20px;">
         <h3 style="font-size:15px;font-weight:600;margin-bottom:14px;color:#374151;">第一步：选择报告类型</h3>
         <div class="quick-cards">
           <div class="quick-card" style="border-color:#1e3a5f;background:#f0f7ff;">
-            <div class="qc-icon blue">📊</div>
+            <div class="qc-icon blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg></div>
             <div class="qc-title">选品调研报告</div>
             <div class="qc-desc">工厂/卖家拓品使用</div>
           </div>
@@ -4574,7 +4586,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
     <section id="myfit" class="page">
 
-      <div class="page-header"><h2>🤖 AI工具</h2></div>
+      <div class="page-header"><h2>AI工具</h2></div>
       <p style="color:#6b7280;margin-bottom:20px;">AI驱动的智能选品、文案生成、数据分析工具</p>
       <div class="quick-cards">
         <div class="quick-card"><div class="qc-icon purple">🎯</div><div class="qc-title">AI智能选品</div><div class="qc-desc">基于多维度数据推荐潜力品类</div></div>
@@ -4663,7 +4675,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
     <section id="tools" class="page">
 
-      <div class="page-header"><h2>🧰 操盘手工具</h2></div>
+      <div class="page-header"><h2>操盘手工具</h2></div>
       <p style="color:#6b7280;margin-bottom:20px;">利润测算、选品评分、备货计算、报告生成 —— 一站式操盘支持</p>
       <div class="quick-cards">
         <div class="quick-card">
@@ -4692,7 +4704,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
     <section id="data" class="page">
 
-      <div class="page-header"><h2>🔌 API接口</h2></div>
+      <div class="page-header"><h2>API接口</h2></div>
       <p style="color:#6b7280;margin-bottom:20px;">将JAY观海数据能力接入你的业务系统</p>
       <div class="chart-card">
         <div class="chart-title">API 接口列表</div>
@@ -5092,7 +5104,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
     <!-- ===== AI工具 ===== -->
     <section id="ai" class="page">
-      <div class="page-header"><h2>🤖 AI工具</h2></div>
+      <div class="page-header"><h2>AI工具</h2></div>
       <p style="color:#6b7280;margin-bottom:20px;">AI驱动的智能选品、文案生成、数据分析工具</p>
       <div class="quick-cards">
         <div class="quick-card"><div class="qc-icon purple">🎯</div><div class="qc-title">AI智能选品</div><div class="qc-desc">基于多维度数据推荐潜力品类</div></div>
@@ -5104,7 +5116,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
     <!-- ===== API接口 ===== -->
     <section id="api" class="page">
-      <div class="page-header"><h2>🔌 API接口</h2></div>
+      <div class="page-header"><h2>API接口</h2></div>
       <p style="color:#6b7280;margin-bottom:20px;">将JAY观海数据能力接入你的业务系统</p>
       <div class="chart-card">
         <div class="chart-title">API 接口列表</div>
@@ -5122,7 +5134,7 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
     <!-- ===== 资源中心 ===== -->
     <section id="resource" class="page">
-      <div class="page-header"><h2>📚 资源中心</h2></div>
+      <div class="page-header"><h2>资源中心</h2></div>
       <p style="color:#6b7280;margin-bottom:20px;">跨境电商运营干货、政策解读、行业报告</p>
       <div class="quick-cards">
         <div class="quick-card"><div class="qc-icon blue">📖</div><div class="qc-title">运营指南</div><div class="qc-desc">平台入驻、选品、广告投放教程</div></div>
@@ -5868,9 +5880,9 @@ function prRenderTable(list){
     return '<tr>'+
       '<td><input type="checkbox" class="pr-chk" data-idx="'+idx+'" '+checked+'></td>'+
       '<td>'+(i+1)+'</td>'+
-      '<td><div class="product-cell"><span class="product-thumb">'+p[0]+'</span><strong class="pr-prod-link" data-idx="'+idx+'" style="cursor:pointer" title="'+nameEsc+'">'+p[1]+'</strong></div></td>'+
+      '<td><div class="product-cell"><span class="product-thumb" data-cat="'+p[4]+'">'+p[0]+'</span><strong class="pr-prod-link" data-idx="'+idx+'" style="cursor:pointer" title="'+nameEsc+'">'+p[1]+'</strong></div></td>'+
       '<td>'+p[2]+' · '+p[3]+'</td>'+
-      '<td><div class="pr-dual-price"><span class="pr-local">'+p[6]+'</span><br><span class="pr-rmb">≈ ¥'+p[7]+' RMB</span></div></td>'+
+      '<td><div class="pr-dual-price">'+(p[6].indexOf('RMB')>=0?'<span class="pr-local">¥'+p[6].replace('RMB','')+'</span>':'<span class="pr-local">'+p[6]+'</span><br><span class="pr-rmb">≈ ¥'+p[7]+'</span>')+'</div></td>'+
       '<td><span style="font-size:11px;color:var(--muted)">'+p[5]+'</span></td>'+
       '<td><span class="pr-shop-link" data-shop="'+p[11]+'">'+p[11]+'</span></td>'+
       '<td>'+p[8]+'</td>'+
@@ -13403,7 +13415,7 @@ function stToast(msg){
 <button id="jay-totop" title="回到顶部">↑</button>
 <footer class="jay-footer">
   <span>JAY观海 · 跨境市场情报系统 <b id="jay-ver">v1.0.0</b></span>
-  <span>数据来源：26国宏观库·平台规则库·政策库·预警库·爆款库·店铺库·内容库·关税库·认证库·物流库·汇率库·行业研报（演示数据）</span>
+  <span>数据来源：GlobalPulse 多源聚合（演示数据）</span>
   <span class="jay-f-sep"></span>
   <a href="javascript:void(0)" onclick="jayOpenGlossary()">术语表</a>
   <a href="javascript:void(0)" onclick="jayOpenOnboard()">新手引导</a>
