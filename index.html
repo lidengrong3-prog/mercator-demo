@@ -10752,10 +10752,10 @@ function rpV2ExportPdfWithLogo(){
     +'h3{font-size:14px;margin:14px 0 6px} p,li{font-size:13px} table{border-collapse:collapse;width:100%;font-size:12px;margin:8px 0}'
     +'th,td{border:1px solid #ddd;padding:6px 8px;text-align:left} th{background:#eff6ff} blockquote{border-left:3px solid #3b7ab8;margin:8px 0;padding:4px 12px;background:#f5f9ff;color:#1e3a5f}'
     +'.rp-foot{margin-top:24px;border-top:1px solid #eee;padding-top:10px;font-size:11px;color:#999}'
-    +'</style><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
-</head><body>'
+    +'</style><link rel="preconnect" href="https://fonts.googleapis.com">'
+    +'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+    +'<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">'
+    +'</head><body>'
     +'<div class="rp-logo"><span class="mark">J</span><span class="name">JAY观海</span><span class="tag">跨境市场情报系统 · 演示报告</span></div>'
     +'<h1>'+title+'</h1>'
     + body.innerHTML
@@ -13690,10 +13690,10 @@ function stToast(msg){
     var w=window.open('','_blank'); if(!w){if(typeof toast==='function')toast('请允许弹出窗口以查看术语表');return;}
     w.document.write('<html lang="zh-CN"><head><meta charset="utf-8"><title>JAY观海 术语表</title>'
       +'<style>body{font-family:-apple-system,Segoe UI,sans-serif;padding:24px;color:#1a2332}'
-      +'h1{color:#2c5f8a}table{border-collapse:collapse;width:100%;font-size:13px}</style><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
-</head>'
+      +'h1{color:#2c5f8a}table{border-collapse:collapse;width:100%;font-size:13px}</style><link rel="preconnect" href="https://fonts.googleapis.com">'
+      +'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+      +'<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">'
+      +'</head>'
       +'<body><h1>JAY观海 · 专业术语表</h1><p>共 '+Object.keys(GLOSS_TERMS).length+' 条</p>'
       +'<table>'+rows+'</table></body></html>'); w.document.close();
   }
@@ -13713,10 +13713,10 @@ function stToast(msg){
       var html='<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title>JAY观海 报告</title>'
         +'<style>body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:32px;color:#1a2332;max-width:900px;margin:auto}'
         +'h1{border-bottom:2px solid #3b7ab8;padding-bottom:8px}h2{margin-top:24px;color:#2c5f8a}'
-        +'li{margin:4px 0}.meta{color:#888;font-size:12px}</style><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
-</head><body>'
+        +'li{margin:4px 0}.meta{color:#888;font-size:12px}</style><link rel="preconnect" href="https://fonts.googleapis.com">'
+        +'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+        +'<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">'
+        +'</head><body>'
         +'<h1>JAY观海 · 市场情报报告</h1><p class="meta">导出时间：'+new Date().toLocaleString('zh-CN')
         +' ｜ 数据来源：JAY观海 跨境市场情报系统</p>';
       html+='<h2>一、报告素材池（'+pool.length+' 条）</h2><ul>';
