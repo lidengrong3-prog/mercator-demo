@@ -9572,12 +9572,14 @@ function ctExportPDF() {
 }
 
 // ========== INIT ==========
+try {
 (function initContentPage() {
   ctInitFilters();
   ctRenderAI();
   ctRenderTplSelect();
   ctApplyFilters();
 })();
+} catch(e) { if(window.console) console.warn('[JAY观海] initContentPage skipped:', e); }
 
 
 
@@ -9588,6 +9590,7 @@ function ctExportPDF() {
   var heroInput=$('#ov-hero-input');
   var heroSend=$('#ov-hero-send');
   var resultEl=$('#ov-hero-result');
+  if(!heroInput||!heroSend||!resultEl||!$('#ov-hero-chips')){if(window.console)console.warn('[JAY观海] old hero block skipped');return;}
 
   function escapeHtml(s){ return s.replace(/[&<"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c];}); }
 
@@ -11935,7 +11938,7 @@ function jayRagContextBlock(query, k){
   return { text: block, sources: sources };
 }
 
-const search=$('#global-search'),results=$('#search-results');search.oninput=()=>{const q=search.value.trim();if(!q){results.classList.remove('show');return}if(!searchIndex.length)jayRebuildSearch();const hits=searchIndex.filter(x=>x[0].toLowerCase().indexOf(q.toLowerCase())>=0||x[1].toLowerCase().indexOf(q.toLowerCase())>=0).slice(0,12);results.innerHTML=(hits.length?hits:[['未找到精确结果','可尝试商品名、店铺名、政策关键词或类目','overview']]).map(x=>`<div class="result" data-page="${x[2]}"><b>${x[0]}</b><small>${x[1]}</small></div>`).join('');results.classList.add('show')};results.onclick=e=>{const item=e.target.closest('.result');if(item){switchPage(item.dataset.page);results.classList.remove('show');search.value=''}};
+const search=$('#global-search'),results=$('#search-results');if(search&&results){search.oninput=()=>{const q=search.value.trim();if(!q){results.classList.remove('show');return}if(!searchIndex.length)jayRebuildSearch();const hits=searchIndex.filter(x=>x[0].toLowerCase().indexOf(q.toLowerCase())>=0||x[1].toLowerCase().indexOf(q.toLowerCase())>=0).slice(0,12);results.innerHTML=(hits.length?hits:[['未找到精确结果','可尝试商品名、店铺名、政策关键词或类目','overview']]).map(x=>`<div class="result" data-page="${x[2]}"><b>${x[0]}</b><small>${x[1]}</small></div>`).join('');results.classList.add('show')};results.onclick=e=>{const item=e.target.closest('.result');if(item){switchPage(item.dataset.page);results.classList.remove('show');search.value=''}}}else{if(window.console)console.warn('[JAY观海] old global-search skipped');}
 
 // ========== JAY观海 SaaS Auth Module ==========
 // (moved to top)
