@@ -12246,29 +12246,39 @@ var authMode = 'login';
 
 var _jayAuthDone = false;
 function initJayAuth() {
+  // 始终先显示登录页（含角色选择），不自动进入
+  showLoginScreen();
+  
   if (typeof supabase !== 'undefined' && JAY_SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+    // 清除 Supabase 持久化 session，防止自动跳过登录页
+    try {
+      var keys = Object.keys(localStorage);
+      for (var i = 0; i < keys.length; i++) {
+        if (keys[i].indexOf('sb-') === 0 && keys[i].indexOf('-auth-token') > -1) {
+          localStorage.removeItem(keys[i]);
+        }
+      }
+    } catch(e) {}
+    
     supabaseClient = supabase.createClient(JAY_SUPABASE_URL, JAY_SUPABASE_KEY, {
-      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false }
     });
-    // 认证状态监听：自动续期 token / 处理登出
+    // 认证状态监听：仅在用户主动登录后触发
     supabaseClient.auth.onAuthStateChange(function(event, session) {
-      if (event === 'SIGNED_IN' && session) {
+      if (event === 'SIGNED_IN' && session && _jayAuthDone) {
         jayUser = session.user;
         loadJayProfile().then(onAuthSuccess);
       } else if (event === 'SIGNED_OUT') {
         jayUser = null; jayProfile = null; showLoginScreen();
-      } else if (event === 'TOKEN_REFRESHED' && session) {
+      } else if (event === 'TOKEN_REFRESHED' && session && _jayAuthDone) {
         jayUser = session.user;
       } else if (event === 'USER_UPDATED') {
         loadJayProfile();
       }
     });
-    checkJaySession().catch(function() { showLoginScreen(); });
     jayLoadShopsFromCloud();
-  } else {
-    // 无 Supabase 配置：显示登录页，用户可选择演示模式
-    showLoginScreen();
   }
+  // 登录页已显示，等待用户选择角色或登录
 }
 
 // === 角色配置 ===
