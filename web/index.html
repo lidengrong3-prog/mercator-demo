@@ -12299,6 +12299,7 @@ var supabaseClient = null;
 var authMode = 'login';
 
 var _jayAuthDone = false;
+var _inDemoMode = false;
 function initJayAuth() {
   // 始终先显示登录页（含角色选择），不自动进入
   showLoginScreen();
@@ -12323,7 +12324,7 @@ function initJayAuth() {
         jayUser = session.user;
         loadJayProfile().then(onAuthSuccess);
       } else if (event === 'SIGNED_OUT') {
-        jayUser = null; jayProfile = null; showLoginScreen();
+        if (!_inDemoMode) { jayUser = null; jayProfile = null; showLoginScreen(); }
       } else if (event === 'TOKEN_REFRESHED' && session && _jayAuthDone) {
         jayUser = session.user;
       } else if (event === 'USER_UPDATED') {
@@ -12367,6 +12368,7 @@ var currentRole = 'analyst'; // 默认角色
 
 // 演示模式入口：支持角色参数
 function enterDemoMode(roleId) {
+  _inDemoMode = true;
   var d = null;
   try { var s = localStorage.getItem('jay_demo'); if (s) d = JSON.parse(s); } catch(e) {}
   if (!d) d = { email: 'admin@jayguanhai.com', id: 'demo-user', name: '演示用户', tier: 'pro' };
@@ -12616,6 +12618,7 @@ async function handleLoginClick() {
 }
 
 async function jayLogout() {
+  _inDemoMode = false;
   localStorage.removeItem('jay_demo');
   if (supabaseClient) await supabaseClient.auth.signOut();
   jayUser = null; jayProfile = null;
