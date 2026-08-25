@@ -2501,7 +2501,8 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
   /* ==================== 主界面 ==================== */
   .main-app { display: flex; flex: 1; width: 100%; min-width: 0; }
-  .login-page { display: none !important; }
+  .login-page { display: flex !important; }
+  .main-app:not(.active) { display: none !important; }
 
   /* 强制主内容区占满侧边栏右侧的全部宽度，防止 flex 重排时坍缩 */
   .main-app > main {
@@ -3477,26 +3478,20 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
       </div>
       <div class="divider">或</div>
       <div class="form-group">
-        <label><span class="required">*</span> 手机号</label>
-        <div class="phone-row">
-          <input type="text" class="form-input code" value="+86" readonly>
-          <input type="text" class="form-input" placeholder="请输入手机号">
-        </div>
+        <label><span class="required">*</span> 邮箱</label>
+        <input type="email" id="auth-email" class="form-input" placeholder="请输入邮箱地址">
       </div>
       <div class="form-group">
-        <label><span class="required">*</span> 验证码</label>
-        <div class="code-input">
-          <input type="text" class="form-input" placeholder="请输入验证码">
-          <button class="get-code-btn">获取验证码</button>
-        </div>
+        <label><span class="required">*</span> 密码</label>
+        <input type="password" id="auth-password" class="form-input" placeholder="请输入密码">
       </div>
-      <div class="form-group">
-        <label>邀请码（非必填）</label>
-        <input type="text" class="form-input" placeholder="请输入邀请码">
-      </div>
-      <button class="login-submit" onclick="initDemoAuth()">登录 / 注册</button>
+      <div id="auth-error" class="auth-error" style="display:none;color:#dc2626;font-size:12px;margin-bottom:10px;text-align:center"></div>
+      <button class="login-submit" id="auth-submit-btn" onclick="handleLoginClick()">登录</button>
+      <p style="text-align:center;margin-top:14px">
+        <a href="#" onclick="enterDemoMode();return false" style="color:#6b7280;font-size:13px;text-decoration:none">🔓 演示模式直接进入 →</a>
+      </p>
       <p class="login-footer-link">
-        <a href="#">邮箱密码登录</a> · 登录即同意 <a href="#">服务条款</a>
+        登录即同意 <a href="#">服务条款</a> · <a href="#" onclick="switchAuthTab('register');return false">注册新账号</a>
       </p>
     </div>
   </div>
@@ -12099,15 +12094,11 @@ var authMode = 'login';
 
 var _jayAuthDone = false;
 function initJayAuth() {
-  // 3 秒兜底：Supabase 连不上时自动降级为 demo 模式，不让用户卡在登录页
-  setTimeout(function() {
-    if (!_jayAuthDone) { initDemoAuth(); }
-  }, 3000);
   if (typeof supabase !== 'undefined' && JAY_SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
     supabaseClient = supabase.createClient(JAY_SUPABASE_URL, JAY_SUPABASE_KEY, {
       auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
     });
-    // 认证状态监听：自动续期 token / 处理登出，避免被静默踢回登录页
+    // 认证状态监听：自动续期 token / 处理登出
     supabaseClient.auth.onAuthStateChange(function(event, session) {
       if (event === 'SIGNED_IN' && session) {
         jayUser = session.user;
@@ -12115,21 +12106,21 @@ function initJayAuth() {
       } else if (event === 'SIGNED_OUT') {
         jayUser = null; jayProfile = null; showLoginScreen();
       } else if (event === 'TOKEN_REFRESHED' && session) {
-        jayUser = session.user; // token 已自动刷新，无需额外操作
+        jayUser = session.user;
       } else if (event === 'USER_UPDATED') {
         loadJayProfile();
       }
-      // INITIAL_SESSION 交给 checkJaySession() 处理，此处不干预
     });
-    checkJaySession().catch(function() { initDemoAuth(); });
+    checkJaySession().catch(function() { showLoginScreen(); });
     jayLoadShopsFromCloud();
   } else {
-    initDemoAuth();
+    // 无 Supabase 配置：显示登录页，用户可选择演示模式
+    showLoginScreen();
   }
 }
 
-function initDemoAuth() {
-  // Demo 模式：任何环境（含受限 iframe / file:// / 无 localStorage）都直接进入
+// 演示模式入口：用户主动点击"演示模式"时调用
+function enterDemoMode() {
   var d = null;
   try { var s = localStorage.getItem('jay_demo'); if (s) d = JSON.parse(s); } catch(e) {}
   if (!d) d = { email: 'admin@jayguanhai.com', id: 'demo-user', name: '演示用户', tier: 'pro' };
@@ -12137,6 +12128,9 @@ function initDemoAuth() {
   jayProfile = { display_name: d.name || d.email.split('@')[0], email: d.email, tier: d.tier || 'pro', company: '' };
   onAuthSuccess();
 }
+
+// 兼容旧调用
+function initDemoAuth() { enterDemoMode(); }
 
 async function checkJaySession() {
   if (!supabaseClient) return;
@@ -12146,8 +12140,8 @@ async function checkJaySession() {
       jayUser = r.data.session.user;
       await loadJayProfile();
       onAuthSuccess();
-    } else { initDemoAuth(); }
-  } catch(e) { initDemoAuth(); }
+    } else { showLoginScreen(); }
+  } catch(e) { showLoginScreen(); }
 }
 
 async function loadJayProfile() {
@@ -12166,12 +12160,16 @@ function switchAuthTab(mode) {
   authMode = mode;
   var tabs = document.querySelectorAll('.auth-tabs button');
   tabs.forEach(function(t,i){ t.classList.toggle('active', (i===0 && mode==='login') || (i===1 && mode==='register')); });
-  document.getElementById('field-name').classList.toggle('show', mode==='register');
-  document.getElementById('field-company').classList.toggle('show', mode==='register');
-  document.getElementById('auth-title').textContent = mode==='login' ? '进入全球市场情报台' : '创建免费账号';
-  document.getElementById('auth-submit-btn').textContent = mode==='login' ? '登录 →' : '注册 →';
-  document.getElementById('auth-reset-link').style.display = mode==='login' ? '' : 'none';
-  document.getElementById('auth-error').classList.remove('show');
+  var fn = document.getElementById('field-name'); if(fn) fn.classList.toggle('show', mode==='register');
+  var fc = document.getElementById('field-company'); if(fc) fc.classList.toggle('show', mode==='register');
+  var at = document.getElementById('auth-title'); if(at) at.textContent = mode==='login' ? '进入全球市场情报台' : '创建免费账号';
+  var sb = document.getElementById('auth-submit-btn'); if(sb) sb.textContent = mode==='login' ? '登录' : '注册';
+  var rl = document.getElementById('auth-reset-link'); if(rl) rl.style.display = mode==='login' ? '' : 'none';
+  var ae = document.getElementById('auth-error'); if(ae) { ae.classList.remove('show'); ae.style.display = 'none'; }
+  // 更新登录页标题
+  var lt = document.querySelector('.login-form-title'); if(lt) lt.textContent = mode==='login' ? '欢迎来到 JAY观海' : '创建免费账号';
+  // 更新按钮文字
+  var lsBtn = document.querySelector('.login-submit'); if(lsBtn) lsBtn.textContent = mode==='login' ? '登录' : '注册';
 }
 
 async function handleAuthSubmit(e) {
@@ -12264,6 +12262,38 @@ async function doRegister(email, password, name, company) {
   return { success: true };
 }
 
+// 登录页点击登录/注册按钮
+async function handleLoginClick() {
+  var email = document.getElementById('auth-email');
+  var password = document.getElementById('auth-password');
+  var errEl = document.getElementById('auth-error');
+  var btn = document.getElementById('auth-submit-btn');
+  if (!email || !password) return;
+  var e = email.value.trim();
+  var p = password.value;
+  if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+  if (!e || !p) {
+    if (errEl) { errEl.textContent = '请输入邮箱和密码'; errEl.style.display = 'block'; }
+    return;
+  }
+  if (btn) { btn.disabled = true; btn.textContent = '处理中...'; }
+  try {
+    var r;
+    if (authMode === 'register') {
+      r = await doRegister(e, p);
+    } else {
+      r = await doLogin(e, p);
+    }
+    if (!r.success) {
+      if (errEl) { errEl.textContent = r.error || '操作失败'; errEl.style.display = 'block'; }
+    }
+  } catch(err) {
+    if (errEl) { errEl.textContent = '网络错误，请重试'; errEl.style.display = 'block'; }
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = authMode === 'register' ? '注册 →' : '登录'; }
+  }
+}
+
 async function jayLogout() {
   localStorage.removeItem('jay_demo');
   if (supabaseClient) await supabaseClient.auth.signOut();
@@ -12292,7 +12322,7 @@ function translateAuthErr(m) {
 
 function onAuthSuccess() {
   _jayAuthDone = true;
-  var ls = document.getElementById('login-screen') || document.getElementById('loginPage');
+  var ls = document.getElementById('loginPage');
   if (ls) ls.style.display = 'none';
   var app = document.getElementById('mainApp');
   if (app) app.classList.add('active');
@@ -12490,7 +12520,10 @@ async function addTemplateToWatchlist(btn) {
 }
 
 function showLoginScreen() {
-  // 登录页已永久隐藏，此函数保留空实现以防其他代码调用
+  var lp = document.getElementById('loginPage');
+  if (lp) lp.style.display = 'flex';
+  var app = document.getElementById('mainApp');
+  if (app) app.classList.remove('active');
 }
 
 function updateSidebarUserInfo() {
