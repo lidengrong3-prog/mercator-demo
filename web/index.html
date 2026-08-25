@@ -3487,6 +3487,33 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 .role-dropdown-item .rd-icon{font-size:16px}
 .role-locked{opacity:.5;pointer-events:none}
 .role-locked::after{content:'🔒';font-size:10px;margin-left:4px}
+
+/* === AI 市场解读卡片 === */
+.ai-insight-card{background:#fff;border-left:4px solid;border-image:linear-gradient(180deg,#3b7ab8,#1e3a5f) 1;border-radius:0 8px 8px 0;margin-bottom:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.ai-insight-header{display:flex;align-items:center;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s}
+.ai-insight-header:hover{background:#f8fafc}
+.ai-insight-icon{font-size:20px;margin-right:10px}
+.ai-insight-title{font-size:14px;font-weight:600;color:#1e3a5f;flex:1}
+.ai-insight-arrow{font-size:12px;color:#6b7280;transition:transform .3s}
+.ai-insight-arrow.collapsed{transform:rotate(-90deg)}
+.ai-insight-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px}
+.ai-insight-body.expanded{max-height:500px;padding:0 18px 16px}
+.ai-insight-text{font-size:14px;line-height:1.7;color:#374151;margin-bottom:10px;min-height:20px}
+.ai-insight-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ai-tag{display:inline-block;background:#eff6ff;color:#1e3a5f;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
+.ai-insight-loading{display:inline-flex;gap:4px;padding:8px 0}
+.ai-insight-loading span{width:6px;height:6px;background:#3b7ab8;border-radius:50%;animation:aiDotBounce .6s infinite alternate}
+.ai-insight-loading span:nth-child(2){animation-delay:.2s}
+.ai-insight-loading span:nth-child(3){animation-delay:.4s}
+@keyframes aiDotBounce{0%{opacity:.3;transform:translateY(0)}100%{opacity:1;transform:translateY(-6px)}}
+@media(prefers-color-scheme:dark){
+.ai-insight-card{background:#1e293b;border-image:linear-gradient(180deg,#60a5fa,#3b82f6) 1}
+.ai-insight-header:hover{background:#263548}
+.ai-insight-title{color:#93c5fd}
+.ai-insight-text{color:#d1d5db}
+.ai-tag{background:#1e3a5f;color:#93c5fd}
+.ai-insight-arrow{color:#9ca3af}
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3702,6 +3729,18 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
 
     <section id="overview" class="page active">
+    <div class="ai-insight-card" id="ai-insight-overview" style="display:none;">
+      <div class="ai-insight-header" onclick="toggleInsightCard('overview')">
+        <span class="ai-insight-icon">🤖</span>
+        <span class="ai-insight-title">AI 市场解读</span>
+        <span class="ai-insight-arrow" id="ai-arrow-overview">▼</span>
+      </div>
+      <div class="ai-insight-body" id="ai-body-overview">
+        <div class="ai-insight-text" id="ai-insight-text-overview"></div>
+        <div class="ai-insight-tags" id="ai-insight-tags-overview"></div>
+      </div>
+    </div>
+
 
     <div class="page-content" data-ref-page="page-market">
       <div class="welcome-bar">
@@ -3877,6 +3916,18 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 
 
     <section id="products" class="page">
+<div class="ai-insight-card" id="ai-insight-products" style="display:none;">
+  <div class="ai-insight-header" onclick="toggleInsightCard('products')">
+    <span class="ai-insight-icon">🤖</span>
+    <span class="ai-insight-title">AI 市场解读</span>
+    <span class="ai-insight-arrow" id="ai-arrow-products">▼</span>
+  </div>
+  <div class="ai-insight-body" id="ai-body-products">
+    <div class="ai-insight-text" id="ai-insight-text-products"></div>
+    <div class="ai-insight-tags" id="ai-insight-tags-products"></div>
+  </div>
+</div>
+
 <div id="pr-ai-tabs" class="pr-ai-tabs">
   <button class="pr-ai-tab active" data-aitab="short">短期机会（7日）</button>
   <button class="pr-ai-tab" data-aitab="long">长期赛道（3月）</button>
@@ -4009,6 +4060,18 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 </section>
 
     <section id="countries" class="page">
+      <div class="ai-insight-card" id="ai-insight-countries" style="display:none;">
+        <div class="ai-insight-header" onclick="toggleInsightCard('countries')">
+          <span class="ai-insight-icon">🤖</span>
+          <span class="ai-insight-title">AI 市场解读</span>
+          <span class="ai-insight-arrow" id="ai-arrow-countries">▼</span>
+        </div>
+        <div class="ai-insight-body" id="ai-body-countries">
+          <div class="ai-insight-text" id="ai-insight-text-countries"></div>
+          <div class="ai-insight-tags" id="ai-insight-tags-countries"></div>
+        </div>
+      </div>
+
 
       <div class="page-header">
         <h2>🇺🇸 美国市场档案</h2>
@@ -14475,6 +14538,172 @@ function formatChange(value){
   }
 })();
 
+
+
+// ========== AI 市场解读卡片 ==========
+function toggleInsightCard(pageId) {
+  var body = document.getElementById('ai-body-' + pageId);
+  var arrow = document.getElementById('ai-arrow-' + pageId);
+  if (!body) return;
+  if (body.classList.contains('expanded')) {
+    body.classList.remove('expanded');
+    arrow.classList.add('collapsed');
+  } else {
+    body.classList.add('expanded');
+    arrow.classList.remove('collapsed');
+    // Trigger typewriter if text hasn't been animated yet
+    var textEl = document.getElementById('ai-insight-text-' + pageId);
+    if (textEl && textEl.dataset.animated !== '1' && textEl.dataset.fullText) {
+      textEl.textContent = '';
+      typewriterEffect(textEl, textEl.dataset.fullText);
+      textEl.dataset.animated = '1';
+    }
+  }
+}
+
+function typewriterEffect(el, text, cb) {
+  var i = 0;
+  el.textContent = '';
+  function type() {
+    if (i < text.length) {
+      el.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, 30);
+    } else if (cb) {
+      cb();
+    }
+  }
+  type();
+}
+
+function extractMetrics(sectionId) {
+  var section = document.getElementById(sectionId);
+  if (!section) return {};
+  var metrics = {};
+  // Extract from metric-card elements
+  var cards = section.querySelectorAll('.metric-card, .ov-metric-card, .cn2-metric-card');
+  cards.forEach(function(card) {
+    var labelEl = card.querySelector('.metric-label, .mc-label');
+    var valueEl = card.querySelector('.metric-value, .mc-value');
+    if (labelEl && valueEl) {
+      metrics[labelEl.textContent.trim()] = valueEl.textContent.trim();
+    }
+  });
+  // Extract from ov-kpi-bar
+  var kpiItems = section.querySelectorAll('.ov-kpi-item');
+  kpiItems.forEach(function(item) {
+    var valEl = item.querySelector('.ov-kpi-val');
+    var labelEl = item.querySelector('.ov-kpi-label');
+    if (valEl && labelEl) {
+      metrics[labelEl.textContent.trim()] = valEl.textContent.trim();
+    }
+  });
+  // Extract from metric-strip
+  var stripItems = section.querySelectorAll('.metric-strip > div');
+  stripItems.forEach(function(item) {
+    var spans = item.querySelectorAll('span, b');
+    if (spans.length >= 2) {
+      metrics[spans[0].textContent.trim()] = spans[spans.length - 1].textContent.trim();
+    }
+  });
+  return metrics;
+}
+
+function generateAIInsight(pageId) {
+  var metrics = extractMetrics(pageId === 'overview' ? 'overview' : pageId === 'products' ? 'countries' : 'countries');
+  var text = '';
+  var tags = [];
+
+  if (pageId === 'overview') {
+    // Overview page: use countries section metrics (GDP, per capita, e-commerce)
+    var allMetrics = extractMetrics('overview');
+    var cMetrics = extractMetrics('countries');
+    var merged = Object.assign({}, allMetrics, cMetrics);
+    var gdp = merged['GDP 总量'] || merged['GDP总量'] || '$27.4万亿';
+    var perCapita = merged['人均 GDP'] || merged['人均GDP'] || '$81,690';
+    var ecomSize = merged['电商市场规模'] || '$1.12万亿';
+    var penetration = merged['电商渗透率'] || '16.3%';
+    var cpi = merged['CPI 通胀率'] || '3.2%';
+    var gdpGrowth = '';
+    // Try to find growth from metric-change
+    var changeEls = document.querySelectorAll('#countries .metric-change');
+    if (changeEls.length > 0) gdpGrowth = changeEls[0].textContent.trim();
+    
+    text = '📊 当前市场GDP总量' + gdp + '，人均GDP达' + perCapita + '。电商市场规模' + ecomSize + '，电商渗透率' + penetration + '。通胀率(CPI)' + cpi + '，宏观经济总体稳健。';
+    text += '综合来看，该市场处于成熟增长阶段，电商渗透率持续提升，建议重点关注消费电子、家居生活、健康保健等高增长品类，把握消费升级趋势。';
+    tags = ['宏观经济', '电商渗透率', '增长趋势', '消费升级'];
+  } else if (pageId === 'products') {
+    // Products page: analyze from available data
+    var boardRows = document.querySelectorAll('#overview .board-table tbody tr');
+    var topProducts = [];
+    boardRows.forEach(function(row, idx) {
+      if (idx < 3) {
+        var nameEl = row.querySelector('.product-name');
+        if (nameEl) topProducts.push(nameEl.textContent.trim());
+      }
+    });
+    var prodHint = topProducts.length > 0 ? '当前热卖品类包括' + topProducts.join('、') + '等。' : '';
+    
+    text = '🔥 品类分析：' + prodHint;
+    text += '从市场数据来看，头部品类竞争激烈，Top品牌市占率呈集中态势。新品牌入局建议聚焦细分场景差异化定位，关注产品创新和内容营销双驱动策略。可通过"爆发爆款榜"和"潜力新品榜"追踪品类动态，及时捕捉市场机会窗口。';
+    tags = ['品类分析', '竞争格局', '爆款趋势', '机会点'];
+  } else if (pageId === 'countries') {
+    var metrics2 = extractMetrics('countries');
+    var gdp2 = metrics2['GDP 总量'] || '$27.4万亿';
+    var ecomSize2 = metrics2['电商市场规模'] || '$1.12万亿';
+    var penetration2 = metrics2['电商渗透率'] || '16.3%';
+    var exchangeRate = metrics2['USD/CNY 汇率'] || '7.24';
+    
+    text = '🌍 区域分析：美国市场作为全球最大单一消费市场，GDP总量达' + gdp2 + '。电商市场规模' + ecomSize2 + '，渗透率' + penetration2 + '，仍有较大增长空间。当前汇率USD/CNY为' + exchangeRate + '。';
+    text += '建议重点关注北美市场消费升级趋势，结合物流基建优势和平台流量红利，优先布局高客单价、高复购率品类。同时关注东南亚等新兴市场的增长机会。';
+    tags = ['区域分析', '物流基建', '重点市场', '汇率影响'];
+  }
+  
+  return { text: text, tags: tags };
+}
+
+function renderAIInsights() {
+  var pages = ['overview', 'products', 'countries'];
+  pages.forEach(function(pageId) {
+    var card = document.getElementById('ai-insight-' + pageId);
+    if (!card) return;
+    
+    var insight = generateAIInsight(pageId);
+    if (!insight || !insight.text) return;
+    
+    var textEl = document.getElementById('ai-insight-text-' + pageId);
+    var tagsEl = document.getElementById('ai-insight-tags-' + pageId);
+    if (!textEl || !tagsEl) return;
+    
+    // Store full text and set up for typewriter on expand
+    textEl.dataset.fullText = insight.text;
+    textEl.dataset.animated = '0';
+    textEl.textContent = insight.text; // Show full text initially
+    
+    // Render tags
+    tagsEl.innerHTML = '';
+    insight.tags.forEach(function(tag) {
+      var span = document.createElement('span');
+      span.className = 'ai-tag';
+      span.textContent = tag;
+      tagsEl.appendChild(span);
+    });
+    
+    // Show card and auto-expand
+    card.style.display = 'block';
+    var body = document.getElementById('ai-body-' + pageId);
+    if (body) body.classList.add('expanded');
+  });
+}
+
+// Hook into page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(renderAIInsights, 800);
+  });
+} else {
+  setTimeout(renderAIInsights, 800);
+}
 </script>
 
 <!-- 铃铛通知面板 -->
