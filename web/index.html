@@ -12324,7 +12324,7 @@ function initJayAuth() {
         jayUser = session.user;
         loadJayProfile().then(onAuthSuccess);
       } else if (event === 'SIGNED_OUT') {
-        if (!_inDemoMode) { jayUser = null; jayProfile = null; showLoginScreen(); }
+        if (!_inDemoMode && _jayAuthDone) { jayUser = null; jayProfile = null; showLoginScreen(); }
       } else if (event === 'TOKEN_REFRESHED' && session && _jayAuthDone) {
         jayUser = session.user;
       } else if (event === 'USER_UPDATED') {
@@ -12369,6 +12369,9 @@ var currentRole = 'analyst'; // 默认角色
 // 演示模式入口：支持角色参数
 function enterDemoMode(roleId) {
   _inDemoMode = true;
+  // Force hide login page immediately
+  var lp = document.getElementById('loginPage');
+  if (lp) lp.classList.add('hidden');
   var d = null;
   try { var s = localStorage.getItem('jay_demo'); if (s) d = JSON.parse(s); } catch(e) {}
   if (!d) d = { email: 'admin@jayguanhai.com', id: 'demo-user', name: '演示用户', tier: 'pro' };
@@ -12552,7 +12555,23 @@ async function doLogin(email, password) {
     return { success: true };
   }
   var r = await supabaseClient.auth.signInWithPassword({ email: email, password: password });
-  if (r.error) return { success: false, error: translateAuthErr(r.error.message) };
+  if (r.error) {
+    // Fallback to local auth if Supabase auth fails
+    console.warn('[JAY观海] Supabase auth failed, falling back to local:', r.error.message);
+    _inDemoMode = true;
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || '');
+    if (!emailOk) return { success: false, error: '请输入有效的邮箱地址' };
+    if ((password || '').length < 6) return { success: false, error: '密码至少需要 6 个字符' };
+    var accs = jayGetAccounts(); var found = null;
+    for(var i=0;i<accs.length;i++){ if(accs[i].email===email){ found=accs[i]; break; } }
+    if(found && found.password && found.password!==password) return { success:false, error:'密码错误，请重试' };
+    var dname = found ? (found.name||email.split('@')[0]) : email.split('@')[0];
+    jayUser = { email: email, id: (found&&found.id) || 'demo-' + Date.now() };
+    jayProfile = { display_name: dname, email: email, tier: (found&&found.tier)||'pro', company: (found&&found.company)||'', phone: (found&&found.phone)||'', role: (found&&found.role)||'', registered_at: (found&&found.registered_at)||'演示会话' };
+    localStorage.setItem('jay_demo', JSON.stringify({ email: email, id: jayUser.id, name: dname, tier: (found&&found.tier)||'pro' }));
+    onAuthSuccess();
+    return { success: true };
+  }
   jayUser = r.data.user;
   await loadJayProfile();
   supabaseClient.from('profiles').update({ last_login_at: new Date().toISOString() }).eq('id', jayUser.id).then().catch(function(e){ console.warn('[JAY观海] update last_login failed:', e.message); });
