@@ -2500,9 +2500,16 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
   .login-footer-link a { color: #1e3a5f; }
 
   /* ==================== 主界面 ==================== */
-  .main-app { display: none !important; flex: 1; width: 100%; min-width: 0; }
-  .main-app.active { display: flex !important; }
-  .login-page { display: flex !important; }
+  .main-app { display: flex; flex: 1; width: 100%; min-width: 0; }
+  .login-page {
+    display: flex !important;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 9999;
+    background: #fff;
+  }
+  .login-page.hidden { display: none !important; }
 
   /* 强制主内容区占满侧边栏右侧的全部宽度，防止 flex 重排时坍缩 */
   .main-app > main {
@@ -12323,7 +12330,7 @@ function translateAuthErr(m) {
 function onAuthSuccess() {
   _jayAuthDone = true;
   var ls = document.getElementById('loginPage');
-  if (ls) { ls.style.display = 'none'; ls.classList.remove('active'); }
+  if (ls) { ls.classList.add('hidden'); }
   var app = document.getElementById('mainApp');
   if (app) app.classList.add('active');
   updateSidebarUserInfo();
@@ -12521,9 +12528,9 @@ async function addTemplateToWatchlist(btn) {
 
 function showLoginScreen() {
   var lp = document.getElementById('loginPage');
-  if (lp) { lp.style.display = 'flex'; lp.classList.add('active'); }
+  if (lp) { lp.classList.remove('hidden'); }
   var app = document.getElementById('mainApp');
-  if (app) { app.classList.remove('active'); app.style.display = ''; }
+  if (app) { /* main-app always visible behind overlay */ }
 }
 
 function updateSidebarUserInfo() {
