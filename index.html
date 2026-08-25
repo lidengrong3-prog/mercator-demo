@@ -3459,6 +3459,34 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
 .change-up{color:#16A37B!important}
 .change-down{color:#DC3545!important}
 .change-flat{color:#637089!important}
+
+/* === 角色选择卡片 === */
+.role-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.role-card{background:#fff;border:1.5px solid #e5e7eb;border-radius:12px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .2s;user-select:none}
+.role-card:hover{border-color:#3b7ab8;box-shadow:0 4px 16px rgba(59,122,184,.15);transform:translateY(-2px)}
+.role-card.selected{border-color:#1e3a5f;background:#eff6ff;box-shadow:0 2px 12px rgba(30,58,95,.12)}
+.role-card .role-icon{font-size:28px;display:block;margin-bottom:8px}
+.role-card .role-name{font-size:13px;font-weight:600;color:#1e3a5f;margin-bottom:4px}
+.role-card .role-desc{font-size:10px;color:#6b7280;line-height:1.4}
+.role-demo-title{font-size:14px;color:#1e3a5f;font-weight:600;text-align:center;margin-top:20px;margin-bottom:0}
+@media(max-width:700px){.role-grid{grid-template-columns:repeat(2,1fr);gap:10px}.role-card{padding:14px 8px}}
+
+/* === 顶栏角色切换器 === */
+.role-switcher{position:relative;display:inline-flex;align-items:center}
+.role-badge{display:flex;align-items:center;gap:5px;background:#eff6ff;border:1px solid #d6e4f5;border-radius:8px;padding:5px 10px;font-size:12px;color:#1e3a5f;cursor:pointer;transition:all .15s;white-space:nowrap;user-select:none}
+.role-badge:hover{background:#dbeafe;border-color:#93c5fd}
+.role-badge .role-badge-icon{font-size:14px}
+.role-badge .role-badge-arrow{font-size:10px;color:#6b7280;margin-left:2px}
+.role-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 8px 24px rgba(26,35,50,.12);min-width:180px;z-index:999;display:none;padding:6px;overflow:hidden}
+.role-dropdown.open{display:block}
+.role-dropdown-item{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:6px;font-size:12px;color:#4b5563;cursor:pointer;transition:background .12s}
+.role-dropdown-item:hover{background:#f0f4f8}
+.role-dropdown-item.active{background:#eff6ff;color:#1e3a5f;font-weight:600}
+.role-dropdown-item .rd-check{margin-left:auto;color:#3b7ab8;font-size:13px;opacity:0}
+.role-dropdown-item.active .rd-check{opacity:1}
+.role-dropdown-item .rd-icon{font-size:16px}
+.role-locked{opacity:.5;pointer-events:none}
+.role-locked::after{content:'🔒';font-size:10px;margin-left:4px}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3507,9 +3535,29 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
       </div>
       <div id="auth-error" class="auth-error" style="display:none;color:#dc2626;font-size:12px;margin-bottom:10px;text-align:center"></div>
       <button class="login-submit" id="auth-submit-btn" onclick="handleLoginClick()">登录</button>
-      <p style="text-align:center;margin-top:14px">
-        <a href="#" onclick="enterDemoMode();return false" style="color:#6b7280;font-size:13px;text-decoration:none">🔓 演示模式直接进入 →</a>
-      </p>
+      <p class="role-demo-title">🔓 选择角色体验 Demo</p>
+      <div class="role-grid" id="loginRoleGrid">
+        <div class="role-card" onclick="enterDemoMode('analyst')" data-role="analyst">
+          <span class="role-icon">🎯</span>
+          <div class="role-name">市场分析师</div>
+          <div class="role-desc">全局市场情报视角</div>
+        </div>
+        <div class="role-card" onclick="enterDemoMode('category')" data-role="category">
+          <span class="role-icon">📦</span>
+          <div class="role-name">品类运营</div>
+          <div class="role-desc">品类深度数据视角</div>
+        </div>
+        <div class="role-card" onclick="enterDemoMode('regional')" data-role="regional">
+          <span class="role-icon">🌍</span>
+          <div class="role-name">区域经理</div>
+          <div class="role-desc">国家深度分析视角</div>
+        </div>
+        <div class="role-card" onclick="enterDemoMode('admin')" data-role="admin">
+          <span class="role-icon">⚙️</span>
+          <div class="role-name">管理员</div>
+          <div class="role-desc">系统配置管理视角</div>
+        </div>
+      </div>
       <p class="login-footer-link">
         登录即同意 <a href="#">服务条款</a> · <a href="#" onclick="switchAuthTab('register');return false">注册新账号</a>
       </p>
@@ -3621,6 +3669,27 @@ mark.jay-hl{background:#fff3a0;color:#1f2d3d;border-radius:4px;padding:0 2px;fon
       <div class="topbar-search">🔍 <input type="text" id="topbar-search" placeholder="搜索产品、类目、平台..."></div>
       <div class="topbar-icon" title="我的收藏">📋</div>
       <div class="topbar-icon" title="消息通知" onclick="jayToggleBell()">🔔 <span class="dot"></span></div>
+      <div class="role-switcher" id="roleSwitcher">
+        <div class="role-badge" onclick="toggleRoleDropdown()">
+          <span class="role-badge-icon" id="roleBadgeIcon">🎯</span>
+          <span id="roleBadgeName">市场分析师</span>
+          <span class="role-badge-arrow">▾</span>
+        </div>
+        <div class="role-dropdown" id="roleDropdown">
+          <div class="role-dropdown-item active" data-role="analyst" onclick="switchRole('analyst')">
+            <span class="rd-icon">🎯</span> 市场分析师 <span class="rd-check">✓</span>
+          </div>
+          <div class="role-dropdown-item" data-role="category" onclick="switchRole('category')">
+            <span class="rd-icon">📦</span> 品类运营 <span class="rd-check">✓</span>
+          </div>
+          <div class="role-dropdown-item" data-role="regional" onclick="switchRole('regional')">
+            <span class="rd-icon">🌍</span> 区域经理 <span class="rd-check">✓</span>
+          </div>
+          <div class="role-dropdown-item" data-role="admin" onclick="switchRole('admin')">
+            <span class="rd-icon">⚙️</span> 管理员 <span class="rd-check">✓</span>
+          </div>
+        </div>
+      </div>
       <div class="lang-switch">🌐 中文 ▾</div>
     </div>
   </header>
@@ -12139,14 +12208,119 @@ function initJayAuth() {
   }
 }
 
-// 演示模式入口：用户主动点击"演示模式"时调用
-function enterDemoMode() {
+// === 角色配置 ===
+const ROLE_CONFIG = {
+  analyst: {
+    name: '市场分析师',
+    icon: '🎯',
+    defaultPage: 'overview',
+    highlight: ['overview']
+  },
+  category: {
+    name: '品类运营',
+    icon: '📦',
+    defaultPage: 'content',
+    highlight: ['content']
+  },
+  regional: {
+    name: '区域经理',
+    icon: '🌍',
+    defaultPage: 'countries',
+    highlight: ['countries']
+  },
+  admin: {
+    name: '管理员',
+    icon: '⚙️',
+    defaultPage: 'tools',
+    highlight: ['tools']
+  }
+};
+
+var currentRole = 'analyst'; // 默认角色
+
+// 演示模式入口：支持角色参数
+function enterDemoMode(roleId) {
   var d = null;
   try { var s = localStorage.getItem('jay_demo'); if (s) d = JSON.parse(s); } catch(e) {}
   if (!d) d = { email: 'admin@jayguanhai.com', id: 'demo-user', name: '演示用户', tier: 'pro' };
   jayUser = { email: d.email, id: d.id, name: d.name || '演示用户' };
   jayProfile = { display_name: d.name || d.email.split('@')[0], email: d.email, tier: d.tier || 'pro', company: '' };
+  // 保存角色选择
+  var role = roleId || 'analyst';
+  if (!ROLE_CONFIG[role]) role = 'analyst';
+  currentRole = role;
+  try { localStorage.setItem('jay_role', role); } catch(e) {}
   onAuthSuccess();
+  // 进入后切换到角色默认页面
+  setTimeout(function(){ applyRoleView(role); }, 100);
+}
+
+// 切换角色（系统内切换）
+function switchRole(roleId) {
+  if (!ROLE_CONFIG[roleId]) return;
+  currentRole = roleId;
+  try { localStorage.setItem('jay_role', roleId); } catch(e) {}
+  // 更新下拉菜单UI
+  updateRoleSwitcherUI(roleId);
+  // 切换到角色默认页面
+  applyRoleView(roleId);
+  // 关闭下拉
+  var dd = document.getElementById('roleDropdown');
+  if (dd) dd.classList.remove('open');
+  toast('已切换为「' + ROLE_CONFIG[roleId].icon + ' ' + ROLE_CONFIG[roleId].name + '」视角');
+}
+
+// 应用角色视角：切换页面 + 高亮导航
+function applyRoleView(roleId) {
+  var cfg = ROLE_CONFIG[roleId];
+  if (!cfg) return;
+  // 更新顶栏角色切换器
+  updateRoleSwitcherUI(roleId);
+  // 切换到默认页面
+  if (typeof switchPage === 'function' && cfg.defaultPage) {
+    switchPage(cfg.defaultPage);
+  }
+}
+
+// 更新角色切换器UI
+function updateRoleSwitcherUI(roleId) {
+  var cfg = ROLE_CONFIG[roleId];
+  if (!cfg) return;
+  // 更新badge显示
+  var iconEl = document.getElementById('roleBadgeIcon');
+  var nameEl = document.getElementById('roleBadgeName');
+  if (iconEl) iconEl.textContent = cfg.icon;
+  if (nameEl) nameEl.textContent = cfg.name;
+  // 更新下拉菜单active状态
+  var items = document.querySelectorAll('#roleDropdown .role-dropdown-item');
+  items.forEach(function(item) {
+    item.classList.toggle('active', item.getAttribute('data-role') === roleId);
+  });
+}
+
+// 切换角色下拉菜单显示
+function toggleRoleDropdown() {
+  var dd = document.getElementById('roleDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+// 点击其他地方关闭下拉
+document.addEventListener('click', function(e) {
+  var sw = document.getElementById('roleSwitcher');
+  var dd = document.getElementById('roleDropdown');
+  if (sw && dd && !sw.contains(e.target)) {
+    dd.classList.remove('open');
+  }
+});
+
+// 页面加载时恢复角色
+function restoreRole() {
+  try {
+    var saved = localStorage.getItem('jay_role');
+    if (saved && ROLE_CONFIG[saved]) {
+      currentRole = saved;
+      updateRoleSwitcherUI(saved);
+    }
+  } catch(e) {}
 }
 
 // 兼容旧调用
@@ -12347,6 +12521,8 @@ function onAuthSuccess() {
   var app = document.getElementById('mainApp');
   if (app) app.classList.add('active');
   updateSidebarUserInfo();
+  // 恢复角色视角
+  if (typeof restoreRole === 'function') restoreRole();
   // Update dynamic user name displays
   try {
     var displayName = jayProfile ? (jayProfile.display_name || jayProfile.email.split('@')[0]) : '演示用户';
